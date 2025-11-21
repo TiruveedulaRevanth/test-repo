@@ -24,9 +24,10 @@ another poershell
 docker ps
 docker  rm nagiosdemo
 docker rmi jasonrivers/nagios
+
+
 **AWS**
 commands:
-
 sudo apt-get update
 sudo apt-get install docker.io
 sudo apt install git
