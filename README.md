@@ -65,7 +65,7 @@ CMD ["catalina.sh", "run"]
 
 
 **PIPELINE CODE**
-
+/*
 pipeline {
     agent any
     tools{
@@ -96,3 +96,4 @@ pipeline {
         }
     }
 }
+*/
