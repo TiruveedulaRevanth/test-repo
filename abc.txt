@@ -36,9 +36,10 @@ create a git repo example
 git clone //your repo
 cd repo Name
 nano Dockerfile
+
 FROM nginx:alpine
 COPY . /usr/share/nginx/html
-
+[OR]
 FROM tomcat:9-jdk11
 COPY target/*. /usr/local/tomcat/webapps
 
