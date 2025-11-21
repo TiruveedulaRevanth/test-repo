@@ -86,3 +86,7 @@ pipeline {
         }
     }
 }
+
+
+jenkins java: https://github.com/leno04/MavenJavaProject
+jenkins web:https://github.com/leno04/MavenWebProject or https://github.com/vam1207/Maven-Webapp.git
