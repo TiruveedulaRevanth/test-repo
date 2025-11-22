@@ -88,5 +88,40 @@ pipeline {
 }
 
 
+
+pipeline {
+    agent any
+    tools{
+        maven 'maven3'
+    }
+    stages {
+        stage('git repo & clean') {
+            steps {
+                 bat """if exist myjavaapp (
+                        rmdir /s /q myjavaapp
+                      )"""
+                //bat "rmdir  /s /q mavenjava"
+                bat "git clone https://github.com/adityapanyala/myjavaapp.git"
+                bat "mvn clean -f myjavaapp"
+            }
+        }
+        stage('install') {
+            steps {
+                bat "mvn install -f myjavaapp" 
+            }
+        }
+        stage('test') {
+            steps {
+                bat "mvn test -f myjavaapp"
+            }
+        }
+        stage('package') {
+            steps {
+                bat "mvn package -f myjavaapp"
+            }
+        }
+    }
+}
+
 jenkins java: https://github.com/leno04/MavenJavaProject
 jenkins web:https://github.com/leno04/MavenWebProject or https://github.com/vam1207/Maven-Webapp.git
