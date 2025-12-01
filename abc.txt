@@ -123,7 +123,7 @@ FROM nginx:alpine
 COPY . /usr/share/nginx/html
 [OR]
 FROM tomcat:9-jdk11
-COPY target/*. /usr/local/tomcat/webapps
+COPY target/*.war /usr/local/tomcat/webapps
 
 after that send ctrl + o && ctrl + x
 sudo docker build -t fileName .
