@@ -1,3 +1,64 @@
+dockerfile create image and run
+create empty folder create file no ext
+FROM redis:latest
+CMD ["redis-server"]
+------------------------------------------------------------------------------------------
+docker create image see in localhost:
+create dockerfile
+FROM nginx:latest
+COPY ./html /usr/share/nginx/html
+EXPOSE 80
+in html folder create index.html
+docker build -t passport-app .
+docker run -d -p 8080:80 --name passport-container passport-app
+
+-----------------------------------------------------------------
+docker mysql wordpress
+yaml file
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - wpsite
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    restart: always
+    ports:
+      - '8000:80'
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - wpsite
+
+networks:
+  wpsite:
+
+volumes:
+  db_data:
+  wordpress_data:
+
+docker-compose up -d
+localhost:8000
+------------------------------------------------------------------
+
 https://github.com/vam1207/Maven-Webapp.git
 **MINIKUBE**
 
