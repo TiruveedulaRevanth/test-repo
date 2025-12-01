@@ -58,7 +58,27 @@ volumes:
 docker-compose up -d
 localhost:8000
 ------------------------------------------------------------------
+illustrate scaling of mysql using kuberetes
 
+minikube start --driver=docker
+minikube kubectl -- get pods -A
+kubectl version --client
+kubectl get nodes
+kubectl create deployment mysql --image=mysql:8.0
+kubectl set env deployment/mysql MYSQL_ROOT_PASSWORD=root123
+kubectl get deployments
+kubectl get pods
+kubectl expose deployment mysql --type=ClusterIP --port=3306 --target-port=3306
+kubectl get service mysql
+kubectl scale deployment mysql --replicas=4
+kubectl get pods -o wide
+kubectl get deployment mysql
+kubectl port-forward svc/mysql 3307:3306
+kubectl delete deployment mysql
+kubectl delete service mysql
+minikube stop
+minikube delete
+--------------------------------------------------------------------------------------
 https://github.com/vam1207/Maven-Webapp.git
 **MINIKUBE**
 
