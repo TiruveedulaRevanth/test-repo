@@ -1,0 +1,9 @@
+var fs = require("fs");
+fs.appendFile("token.txt", `Hello everyone`, function (err) {
+  if (err) throw err;
+  console.log("File is Appended successfully.");
+});
+
+
+var data = fs.readFileSync("text.txt", "utf8");
+console.log(data);
