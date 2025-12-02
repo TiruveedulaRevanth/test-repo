@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h3>Select Location</h3>
+<select id="loc" onchange="loadWeather()">
+  <option value="">--Select--</option>
+  <option value="hyd">Hyderabad</option>
+  <option value="mumbai">Mumbai</option>
+  <option value="delhi">Delhi</option>
+</select>
+<div id="out"></div>
+<script>
+function loadWeather() {
+  let city = document.getElementById("loc").value;
+  if (!city) return;
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", "weather.json", true);
+  xhr.onload = function () {
+    if (xhr.status == 200) {
+      let data = JSON.parse(xhr.responseText);
+      console.log(xhr)
+      console.log(data)
+      let info = data[city];
+      let out = `
+        <h3>Weather Report</h3>
+        <table border="1">
+          <tr><td>City</td><td>${info.name}</td></tr>
+          <tr><td>Temperature</td><td>${info.temp}</td></tr>
+          <tr><td>Humidity</td><td>${info.humidity}</td></tr>
+          <tr><td>Condition</td><td>${info.condition}</td></tr>
+        </table>
+      `;
+      document.getElementById("out").innerHTML = out;
+    }
+  };
+  xhr.send();
+}
+</script>
+</body>
+</html>
+
+
+
+{
+  "hyd": {
+    "name": "Hyderabad",
+    "temp": "32°C",
+    "humidity": "55%",
+    "condition": "Sunny"
+  },
+  "mumbai": {
+    "name": "Mumbai",
+    "temp": "29°C",
+    "humidity": "70%",
+    "condition": "Cloudy"
+  },
+  "delhi": {
+    "name": "Delhi",
+    "temp": "34°C",
+    "humidity": "48%",
+    "condition": "Hot"
+  }
+}
