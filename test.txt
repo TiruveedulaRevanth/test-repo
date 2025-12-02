@@ -1,3 +1,31 @@
+Online Banking System
+Functional Requirements:
+User Authentication
+Login with username/password, OTP.
+Account Management
+View account details, balance, statements.
+Funds Transfer
+Transfer within bank.
+NEFT/RTGS/IMPS to other banks.
+Beneficiary Management
+Add/remove beneficiaries.
+Bill Payments
+Pay utility bills, credit cards.
+Mini Statement & Transaction History
+Profile & Settings
+Change password, set alerts.
+Admin
+Manage users, approve high-value transactions, audit logs.
+Non-Functional Requirements:
+Strong security (encryption, 2FA, session timeouts).
+Reliability (no loss of transaction data).
+Atomicity of transactions.
+Performance (fast response for balance, transfers).
+Availability (24/7).
+Regulatory compliance (banking standards).
+Auditability (logs of all actions).
+
+
 a)	Explain the Functional and Non-Functional requirements of  Food delivery application system.
 b)	Construct a Class diagram for Food delivery application  System.
 c)	Create a new Maven Java project, run it, and push the complete project to GitHub.
