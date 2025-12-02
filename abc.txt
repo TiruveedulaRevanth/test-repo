@@ -1,209 +1,154 @@
-dockerfile create image and run
-create empty folder create file no ext
-FROM redis:latest
-CMD ["redis-server"]
-------------------------------------------------------------------------------------------
-docker create image see in localhost:
-create dockerfile
-FROM nginx:latest
-COPY ./html /usr/share/nginx/html
-EXPOSE 80
-in html folder create index.html
-docker build -t passport-app .
-docker run -d -p 8080:80 --name passport-container passport-app
+Create a simple website for CRUD operations on student DB using Express Routing
+<!DOCTYPE html>
+<html>
+<body>
 
------------------------------------------------------------------
-docker mysql wordpress
-yaml file
-version: '3'
+<h2>Student Database Client</h2>
 
-services:
-  db:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
-    volumes:
-      - db_data:/var/lib/mysql
-    networks:
-      - wpsite
+<h3>Register Student</h3>
+<form onsubmit="register(event)">
+  Name: <input id="r_name"><br>
+  ID: <input id="r_id"><br>
+  Course: <input id="r_course"><br>
+  Branch: <input id="r_branch"><br><br>
+  <button type="submit">Register</button>
+</form>
 
-  wordpress:
-    depends_on:
-      - db
-    image: wordpress:latest
-    restart: always
-    ports:
-      - '8000:80'
-    environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
-      WORDPRESS_DB_NAME: wordpress
-    volumes:
-      - wordpress_data:/var/www/html
-    networks:
-      - wpsite
+<h3>Fetch Student</h3>
+<form onsubmit="fetchData(event)">
+  Roll No: <input id="f_id"><br><br>
+  <button type="submit">Fetch</button>
+</form>
 
-networks:
-  wpsite:
+<h3>Update Student</h3>
+<form onsubmit="updateData(event)">
+  Existing Name: <input id="u_old_name"><br>
+  New Name: <input id="u_name"><br>
+  New ID: <input id="u_id"><br>
+  New Course: <input id="u_course"><br>
+  New Branch: <input id="u_branch"><br><br>
+  <button type="submit">Update</button>
+</form>
 
-volumes:
-  db_data:
-  wordpress_data:
+<h3>Delete Student</h3>
+<form onsubmit="deleteData(event)">
+  Roll No: <input id="d_id"><br><br>
+  <button type="submit">Delete</button>
+</form>
 
-docker-compose up -d
-localhost:8000
-------------------------------------------------------------------
-illustrate scaling of mysql using kuberetes
+<div id="output"></div>
 
-minikube start --driver=docker
-minikube kubectl -- get pods -A
-kubectl version --client
-kubectl get nodes
-kubectl create deployment mysql --image=mysql:8.0
-kubectl set env deployment/mysql MYSQL_ROOT_PASSWORD=root123
-kubectl get deployments
-kubectl get pods
-kubectl expose deployment mysql --type=ClusterIP --port=3306 --target-port=3306
-kubectl get service mysql
-kubectl scale deployment mysql --replicas=4
-kubectl get pods -o wide
-kubectl get deployment mysql
-kubectl port-forward svc/mysql 3307:3306
-kubectl delete deployment mysql
-kubectl delete service mysql
-minikube stop
-minikube delete
---------------------------------------------------------------------------------------
-https://github.com/vam1207/Maven-Webapp.git
-**MINIKUBE**
-
-minikube start --driver=docker
-minikube kubectl -- get pods -A
-kubectl version --client
-minikube start
-kubectl create deployment mynginx --image=nginx
-kubectl get deployments
-kubectl expose deployment mynginx --type=NodePort --port=80 --target-port=80
-kubectl scale deployment mynginx --replicas=4
-kubectl get service mynginx
-kubectl port-forward svc/mynginx 8081:80
-Open localhost after that delete
-kubectl delete deployment mynginx
-kubectl delete service mynginx
-minikube stop
-minikube delete
-
-**NAGIOS**
-
-docker pull jasonrivers/nagios:latest
-docker run --name nagiosdemo -p 8888:80 jasonrivers/nagios:latest
-another poershell 
-docker ps
-docker  rm nagiosdemo
-docker rmi jasonrivers/nagios
-
-
-**AWS**
-commands:
-sudo apt-get update
-sudo apt-get install docker.io
-sudo apt install git
-sudo apt install nano
-create a git repo example
-git clone //your repo
-cd repo Name
-nano Dockerfile
-
-FROM nginx:alpine
-COPY . /usr/share/nginx/html
-[OR]
-FROM tomcat:9-jdk11
-COPY target/*.war /usr/local/tomcat/webapps
-
-after that send ctrl + o && ctrl + x
-sudo docker build -t fileName .
-sudo docker run -d -p 9090:8080 filename
-
-on broser ipaddress:9090\gitreponame
-
-//SAFE SIDE (Docker compose file):
-FROM tomcat:9.0
-RUN rm -rf /usr/local/tomcat/webapps/*
-COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
-CMD ["catalina.sh", "run"]
-**PIPELINE CODE**
-
-pipeline {
-    agent any
-    tools{
-        maven 'MAVEN_HOME'
-    }
-    stages {
-        stage('git repo & clean') {
-            steps {
-                //bat "rmdir  /s /q mavenjava"
-                bat "git clone https://github.com/srivijju/jenkins_web.git"
-                bat "mvn clean -f jenkins_web"
-            }
-        }
-        stage('install') {
-            steps {
-                bat "mvn install -f jenkins_web"
-            }
-        }
-        stage('test') {
-            steps {
-                bat "mvn test -f jenkins_web"
-            }
-        }
-        stage('package') {
-            steps {
-                bat "mvn package -f jenkins_web"
-            }
-        }
-    }
+<script>
+async function register(e){
+  e.preventDefault();
+  let body = {
+    name: r_name.value,
+    id: r_id.value,
+    course: r_course.value,
+    branch: r_branch.value
+  };
+  let res = await fetch("http://localhost:3000/register", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(body)
+  });
+  output.innerHTML = await res.text();
 }
 
-
-
-pipeline {
-    agent any
-    tools{
-        maven 'maven3'
-    }
-    stages {
-        stage('git repo & clean') {
-            steps {
-                 bat """if exist myjavaapp (
-                        rmdir /s /q myjavaapp
-                      )"""
-                //bat "rmdir  /s /q mavenjava"
-                bat "git clone https://github.com/adityapanyala/myjavaapp.git"
-                bat "mvn clean -f myjavaapp"
-            }
-        }
-        stage('install') {
-            steps {
-                bat "mvn install -f myjavaapp" 
-            }
-        }
-        stage('test') {
-            steps {
-                bat "mvn test -f myjavaapp"
-            }
-        }
-        stage('package') {
-            steps {
-                bat "mvn package -f myjavaapp"
-            }
-        }
-    }
+async function fetchData(e){
+  e.preventDefault();
+  let res = await fetch("http://localhost:3000/fetch/" + f_id.value);
+output.innerHTML = `<pre>${JSON.stringify(await res.json())}<pre>`;
 }
 
-jenkins java: https://github.com/leno04/MavenJavaProject
-jenkins web:https://github.com/leno04/MavenWebProject or https://github.com/vam1207/Maven-Webapp.git
+async function updateData(e){
+  e.preventDefault();
+  let body = {
+    oldName: u_old_name.value,
+    name: u_name.value,
+    id: u_id.value,
+    course: u_course.value,
+    branch: u_branch.value
+  };
+  let res = await fetch("http://localhost:3000/update", {
+    method: "PUT",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(body)
+  });
+  output.innerHTML = await res.text();
+}
+
+async function deleteData(e){
+  e.preventDefault();
+  let res = await fetch("http://localhost:3000/delete", {
+    method: "DELETE",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({id: d_id.value})
+  });
+  output.innerHTML = await res.text();
+}
+</script>
+
+</body>
+</html>
+
+
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+mongoose
+  .connect("mongodb://localhost:27017/wtexternal")
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err));
+const studentSchema = new mongoose.Schema({
+  name: String,
+  id: String,
+  course: String,
+  branch: String,
+});
+
+const Student = mongoose.model("students", studentSchema);
+
+app.post("/register", async (req, res) => {
+  try {
+    await Student.create(req.body);
+    res.send("Student Registered Successfully");
+  } catch (e) {
+    res.send("Failed to register student");
+  }
+}); 
+
+app.get("/fetch/:id", async (req, res) => {
+  let stu = await Student.find({ id: req.params.id });
+  res.json(stu);
+});
+
+app.put("/update", async (req, res) => {
+  const { oldName, name, id, course, branch } = req.body;
+  try {
+    let result = await Student.findOneAndUpdate(
+      { name: oldName },
+      {name, id, course, branch },
+        { new: true }
+    );
+    res.send("Student Updated Successfully");
+  } catch (e) {
+    res.send("Update Failed");
+  }
+});
+
+app.delete("/delete", async (req, res) => {
+  try {
+    await Student.deleteOne({ id: req.body.id });
+    res.send("Student Deleted Successfully");
+  } catch (e) {
+    res.send("Delete Failed");
+  }
+});
+
+app.listen(3000, () => console.log("Server running on port 3000"));
+
