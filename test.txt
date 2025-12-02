@@ -1,2 +1,49 @@
-"Hello!" 
-JOYVERSE APPLICATION
+a)	Explain the Functional and Non-Functional requirements of  Food delivery application system.
+b)	Construct a Class diagram for Food delivery application  System.
+c)	Create a new Maven Java project, run it, and push the complete project to GitHub.
+d)	Demonstrate the deployment of web application in AWS using EC2 instance.
+
+a)	Explain the Functional and Non-Functional requirements of E- Ticketing system.
+b)	Construct a Use Case diagram for E- Ticketing System.
+c)	create and configure a Jenkins Freestyle Project to build a Java application using Maven.
+d)	Demonstrate the deployment of web application in AWS using EC2 instance for above project.
+
+a)	Explain the Functional and Non-Functional requirements of Online Banking system.
+b)	Construct a Sequence diagram for Online Banking System.
+c)	Create a Maven Web Application and upload it to GitHub.
+d)	Create Multi Container of mysql and word press through Docker
+
+a)	Construct a Sequence Component diagram for Hospital Management System.
+b)	Explain the Functional and Non-Functional requirements of Online Course Reservation system.
+c)	Create and configure a Jenkins Freestyle Project to build a Java web application using Maven.
+d)	Illustrate the monitoring of a project through Nagios.
+
+a)	Explain the Functional and Non-Functional requirements of Online Course Reservation system.
+b)	Construct a Class diagram for Online Course Reservation System.
+c)	Illustrate the scaling of a container named mysql through Kubernetes.
+d)	create a complete Jenkins Scripted Pipeline that will automatically clone the source code from GitHub, build it, test it, and archive the results.
+
+a)	Explain the Functional and Non-Functional requirements of Online Railway  System.
+b)	Construct a Use Case diagram for Online Railway System.
+c)	Create a Docker Compose setup with a Node.js app and MongoDB.
+d)	Illustrate the scaling of a container named mysql through Kubernetes
+
+a)	Explain the Functional and Non-Functional requirements of Passport Automation System.
+b)	Construct a Use Case diagram for Passport Automation System.
+c)	Illustrate the monitoring of a project through Nagios
+d)	Write the Docker file and create the image and  access the image in localhost
+
+a)	Explain the Functional and Non-Functional requirements of Book system.
+b)	Construct a Sequence diagram for Book Bank System.
+c)	Illustrate the monitoring of a project through Nagios
+d)	Illustrate the scaling of a container named mysql through Kubernetes
+
+a)	Explain the Functional and Non-Functional requirements of Online Banking system.
+b)	Construct a Component diagram for Online Banking System.
+c)	create a complete Jenkins Scripted Pipeline that will automatically clone the source code from GitHub, build it, test it, and archive the results.
+d)	Create Multi Container of mysql and wordpress through Docker
+
+a)	Explain the Functional and Non-Functional requirements of Online Course Reservation system.
+b)	Construct a Use Case diagram for Online Course Reservation System.
+c)	Illustrate the scaling of a container named mysql through Kubernetes
+d)	Explain the deployment of web application in AWS using EC2 instance.
