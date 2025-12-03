@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Fetch Student by Roll Number</h2>
+<form onsubmit="fetchData(event)">
+  Roll No: <input id="roll"><br><br>
+  <button type="submit">Fetch Student</button>
+</form>
+<div id="output"></div>
+<script>
+async function fetchData(e){
+  e.preventDefault();
+  let rollValue = document.getElementById("roll").value;
+  let res = await fetch("http://localhost:3000/student/" + rollValue);
+  let data = await res.json();
+  document.getElementById("output").innerHTML =
+    `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+}
+</script>
+</body>
+</html>
+
+
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const app = express();
+app.use(express.json());
+app.use(cors());
+mongoose
+  .connect("mongodb://localhost:27017/wtexternal3")
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err));
+const studentSchema = new mongoose.Schema({
+  name: String,
+  roll: String,
+  course: String,
+  branch: String,
+});
+const Student = mongoose.model("students", studentSchema);
+app.get("/student/:roll", async (req, res) => {
+  const stu = await Student.findOne({ roll: req.params.roll });
+  if (!stu) {
+    return res.json({ message: "Student Not Found" });
+  }
+  res.json(stu);
+});
+app.listen(3000, () => console.log("Server running on port 3000"));
